@@ -17,7 +17,7 @@ class Jwt():
 
     @staticmethod
     def b64decode(jsn):
-        # 如何把去掉的=号加回来， base64串有某个规律可以实现该需求 todo
+        # 如何把去掉的=號加回来，加回来， base64串有某個规律可以實現該需求 todo
         # base64长度能被4整除
         sem = len(jsn) % 4
         if sem > 0:
@@ -29,7 +29,7 @@ class Jwt():
     def encode(payload, key, exp=300):
         # init header
         # alg代表要使用的 算法
-        # typ表明该token的类别 - 此处必须为 大写的 JWT
+        # typ表明该token的类别 - 此處必須為大寫  JWT
         # header 只是申明，沒有規範
         # --------------------------------------------------------------------
         header = {'typ': 'JWT', "alg": 'HS256'}
@@ -57,18 +57,18 @@ class Jwt():
 
     @staticmethod
     def decode(token, key):
-        # 校验签名???
-        # 检查 exp是否过期
-        # return payload部分的解码???
+        # 較驗簽名???
+        # 檢查 exp是否過期
+        # return payload部分的解碼???
         header_bs, payload_bs, sign_bs = token.split(b'.')
-        # 校验sign_bs
+        # 較驗簽名??sign_bs
         if isinstance(key, str):
             key = key.encode()
         hm = hmac.new(key, header_bs + b'.' + payload_bs, digestmod="SHA256")
-        # 比对两次的sign结果
+        # 比對比次的sign结果
         if sign_bs != Jwt.b64encode(hm.digest()):
             raise
-        # 检查是否过期
+        # 檢查是否過期
         payload_js = Jwt.b64decode(payload_bs)
         payload = json.loads(payload_js)
 

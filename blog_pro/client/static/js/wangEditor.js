@@ -53,7 +53,7 @@ var polyfill = function () {
     DOM 操作 API
 */
 
-// 根据 html 代码片段创建 dom 对象
+// 根據html代碼片段創建dom對象
 function createElemByHTML(html) {
     var div = void 0;
     div = document.createElement('div');
@@ -61,7 +61,7 @@ function createElemByHTML(html) {
     return div.children;
 }
 
-// 是否是 DOM List
+// 是否是DOM清單
 function isDOMList(selector) {
     if (!selector) {
         return false;
@@ -82,16 +82,16 @@ function querySelectorAll(selector) {
     }
 }
 
-// 记录所有的事件绑定
+// 記錄所有的事件綁定
 var eventList = [];
 
-// 创建构造函数
+// 創建構造函數
 function DomElement(selector) {
     if (!selector) {
         return;
     }
 
-    // selector 本来就是 DomElement 对象，直接返回
+    // selector 本來就是DomElement對象，直接返回
     if (selector instanceof DomElement) {
         return selector;
     }
@@ -99,19 +99,19 @@ function DomElement(selector) {
     this.selector = selector;
     var nodeType = selector.nodeType;
 
-    // 根据 selector 得出的结果（如 DOM，DOM List）
+    // 根據selector得出的結果（如 DOM，DOM List）
     var selectorResult = [];
     if (nodeType === 9) {
-        // document 节点
+        // document 節點
         selectorResult = [selector];
     } else if (nodeType === 1) {
-        // 单个 DOM 节点
+        // 单个 DOM 節點
         selectorResult = [selector];
     } else if (isDOMList(selector) || selector instanceof Array) {
-        // DOM List 或者数组
+        // DOM List 或者數組
         selectorResult = selector;
     } else if (typeof selector === 'string') {
-        // 字符串
+        // 字符串串
         selector = selector.replace('/\n/mg', '').trim();
         if (selector.indexOf('<') === 0) {
             // 如 <div>
@@ -124,11 +124,11 @@ function DomElement(selector) {
 
     var length = selectorResult.length;
     if (!length) {
-        // 空数组
+        // 空數组
         return this;
     }
 
-    // 加入 DOM 节点
+    // 加入 DOM 節點
     var i = void 0;
     for (i = 0; i < length; i++) {
         this[i] = selectorResult[i];
@@ -140,7 +140,7 @@ function DomElement(selector) {
 DomElement.prototype = {
     constructor: DomElement,
 
-    // 类数组，forEach
+    // 類數组，forEach
     forEach: function forEach(fn) {
         var i = void 0;
         for (i = 0; i < this.length; i++) {
@@ -162,7 +162,7 @@ DomElement.prototype = {
         return $(cloneList);
     },
 
-    // 获取第几个元素
+    // 獲取第幾個元素
     get: function get(index) {
         var length = this.length;
         if (index >= length) {
@@ -176,7 +176,7 @@ DomElement.prototype = {
         return this.get(0);
     },
 
-    // 最后一个
+    // 最後一个
     last: function last() {
         var length = this.length;
         return this.get(length - 1);
@@ -184,13 +184,13 @@ DomElement.prototype = {
 
     // 绑定事件
     on: function on(type, selector, fn) {
-        // selector 不为空，证明绑定事件要加代理
+        // selector 不為空，证明绑定事件要加代理
         if (!fn) {
             fn = selector;
             selector = null;
         }
 
-        // type 是否有多个
+        // type 是否有多個
         var types = [];
         types = type.split(/\s+/);
 
@@ -200,7 +200,7 @@ DomElement.prototype = {
                     return;
                 }
 
-                // 记录下，方便后面解绑
+                // 紀錄下，方便后面解绑
                 eventList.push({
                     elem: elem,
                     type: type,
@@ -208,7 +208,7 @@ DomElement.prototype = {
                 });
 
                 if (!selector) {
-                    // 无代理
+                    // 無代理
                     elem.addEventListener(type, fn);
                     return;
                 }
@@ -231,13 +231,13 @@ DomElement.prototype = {
         });
     },
 
-    // 获取/设置 属性
+    //獲取/設置屬性
     attr: function attr(key, val) {
         if (val == null) {
-            // 获取值
+            // 獲取值
             return this[0].getAttribute(key);
         } else {
-            // 设置值
+            // 設置值
             return this.forEach(function (elem) {
                 elem.setAttribute(key, val);
             });
@@ -252,7 +252,7 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var arr = void 0;
             if (elem.className) {
-                // 解析当前 className 转换为数组
+                // 解析当前 className 轉換為數組
                 arr = elem.className.split(/\s/);
                 arr = arr.filter(function (item) {
                     return !!item.trim();
@@ -277,7 +277,7 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var arr = void 0;
             if (elem.className) {
-                // 解析当前 className 转换为数组
+                // 解析當前 className 轉換為數組
                 arr = elem.className.split(/\s/);
                 arr = arr.filter(function (item) {
                     item = item.trim();
@@ -301,10 +301,10 @@ DomElement.prototype = {
             var styleArr = void 0,
                 resultArr = [];
             if (style) {
-                // 将 style 按照 ; 拆分为数组
+                // 将 style 按照 ; 拆分為數組
                 styleArr = style.split(';');
                 styleArr.forEach(function (item) {
-                    // 对每项样式，按照 : 拆分为 key 和 value
+                    // 對每個樣式 : 拆分為 key 和 value
                     var arr = item.split(':').map(function (i) {
                         return i.trim();
                     });
@@ -326,13 +326,13 @@ DomElement.prototype = {
                 // 结果
                 elem.setAttribute('style', resultArr.join('; '));
             } else {
-                // style 无值
+                // style 無值
                 elem.setAttribute('style', currentStyle);
             }
         });
     },
 
-    // 显示
+    // 顯示
     show: function show() {
         return this.css('display', 'block');
     },
@@ -342,7 +342,7 @@ DomElement.prototype = {
         return this.css('display', 'none');
     },
 
-    // 获取子节点
+    //獲取子例程
     children: function children() {
         var elem = this[0];
         if (!elem) {
@@ -352,7 +352,7 @@ DomElement.prototype = {
         return $(elem.children);
     },
 
-    // 获取子节点（包括文本节点）
+    // 獲取子例程（包括文本摘要）
     childNodes: function childNodes() {
         var elem = this[0];
         if (!elem) {
@@ -362,7 +362,7 @@ DomElement.prototype = {
         return $(elem.childNodes);
     },
 
-    // 增加子节点
+    // 增加子節點
     append: function append($children) {
         return this.forEach(function (elem) {
             $children.forEach(function (child) {
@@ -371,7 +371,7 @@ DomElement.prototype = {
         });
     },
 
-    // 移除当前节点
+    // 移除當前節點
     remove: function remove() {
         return this.forEach(function (elem) {
             if (elem.remove) {
@@ -383,14 +383,14 @@ DomElement.prototype = {
         });
     },
 
-    // 是否包含某个子节点
+    // 是否包含某個子節點
     isContain: function isContain($child) {
         var elem = this[0];
         var child = $child[0];
         return elem.contains(child);
     },
 
-    // 尺寸数据
+    // 尺寸數據
     getSizeData: function getSizeData() {
         var elem = this[0];
         return elem.getBoundingClientRect(); // 可得到 bottom height left right top width 的数据
@@ -402,29 +402,29 @@ DomElement.prototype = {
         return elem.nodeName;
     },
 
-    // 从当前元素查找
+    // 從當前元素查找
     find: function find(selector) {
         var elem = this[0];
         return $(elem.querySelectorAll(selector));
     },
 
-    // 获取当前元素的 text
+    // 獲取當前元素的 text
     text: function text(val) {
         if (!val) {
-            // 获取 text
+            // 獲取 text
             var elem = this[0];
             return elem.innerHTML.replace(/<.*?>/g, function () {
                 return '';
             });
         } else {
-            // 设置 text
+            // 設置text
             return this.forEach(function (elem) {
                 elem.innerHTML = val;
             });
         }
     },
 
-    // 获取 html
+    // 獲取 html
     html: function html(value) {
         var elem = this[0];
         if (value == null) {
@@ -435,7 +435,7 @@ DomElement.prototype = {
         }
     },
 
-    // 获取 value
+    // 獲取 value
     val: function val() {
         var elem = this[0];
         return elem.value.trim();
@@ -454,12 +454,12 @@ DomElement.prototype = {
         return $(elem.parentElement);
     },
 
-    // parentUntil 找到符合 selector 的父节点
+    // parentUntil 找到符合 selector 的父節點
     parentUntil: function parentUntil(selector, _currentElem) {
         var results = document.querySelectorAll(selector);
         var length = results.length;
         if (!length) {
-            // 传入的 selector 无效
+            // 傳入的 selector 無效
             return null;
         }
 
@@ -472,16 +472,16 @@ DomElement.prototype = {
         var i = void 0;
         for (i = 0; i < length; i++) {
             if (parent === results[i]) {
-                // 找到，并返回
+                // 找到，返回
                 return $(parent);
             }
         }
 
-        // 继续查找
+        // 繼續查找
         return this.parentUntil(selector, parent);
     },
 
-    // 判断两个 elem 是否相等
+    // 判断兩個 elem 是否相等
     equal: function equal($elem) {
         if ($elem.nodeType === 1) {
             return this[0] === $elem;
@@ -490,7 +490,7 @@ DomElement.prototype = {
         }
     },
 
-    // 将该元素插入到某个元素前面
+    // 將該元素插入到某元素前面
     insertBefore: function insertBefore(selector) {
         var $referenceNode = $(selector);
         var referenceNode = $referenceNode[0];
@@ -503,7 +503,7 @@ DomElement.prototype = {
         });
     },
 
-    // 将该元素插入到某个元素后面
+    // 將該元素插入到某元素后面
     insertAfter: function insertAfter(selector) {
         var $referenceNode = $(selector);
         var referenceNode = $referenceNode[0];
@@ -513,22 +513,22 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var parent = referenceNode.parentNode;
             if (parent.lastChild === referenceNode) {
-                // 最后一个元素
+                // 最后一個元素
                 parent.appendChild(elem);
             } else {
-                // 不是最后一个元素
+                // 不是最後一格元素
                 parent.insertBefore(elem, referenceNode.nextSibling);
             }
         });
     }
 };
 
-// new 一个对象
+// new 一個對象
 function $(selector) {
     return new DomElement(selector);
 }
 
-// 解绑所有事件，用于销毁编辑器
+// 解綁所有事件，用于销毁编辑器
 $.offAll = function () {
     eventList.forEach(function (item) {
         var elem = item.elem;
@@ -545,7 +545,7 @@ $.offAll = function () {
 
 var config = {
 
-    // 默认菜单配置
+    // 默認菜單配置
     menus: ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
 
     fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
@@ -554,21 +554,21 @@ var config = {
 
     // // 语言配置
     // lang: {
-    //     '设置标题': 'title',
+    //     '設置標题': 'title',
     //     '正文': 'p',
-    //     '链接文字': 'link text',
-    //     '链接': 'link',
+    //     '連結文字': 'link text',
+    //     '連結': 'link',
     //     '插入': 'insert',
-    //     '创建': 'init'
+    //     '創建': 'init'
     // },
 
     // 表情
     emotions: [{
-        // tab 的标题
+        // tab 的標題
         title: '默认',
         // type -> 'emoji' / 'image'
         type: 'image',
-        // content -> 数组
+        // content -> 數組
         content: [{
             alt: '[坏笑]',
             src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/50/pcmoren_huaixiao_org.png'
@@ -580,11 +580,11 @@ var config = {
             src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png'
         }]
     }, {
-        // tab 的标题
+        // tab 的標題
         title: '新浪',
         // type -> 'emoji' / 'image'
         type: 'image',
-        // content -> 数组
+        // content -> 數組
         content: [{
             src: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
             alt: '[草泥马]'
@@ -596,18 +596,18 @@ var config = {
             alt: '[浮云]'
         }]
     }, {
-        // tab 的标题
+        // tab 的標題
         title: 'emoji',
         // type -> 'emoji' / 'image'
         type: 'emoji',
-        // content -> 数组
+        // content -> 數組
         content: '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😓 😪 😴 🙄 🤔 😬 🤐'.split(/\s/)
     }],
 
-    // 编辑区域的 z-index
+    // 编辑區域的 z-index
     zIndex: 10000,
 
-    // 是否开启 debug 模式（debug 模式下错误会 throw error 形式抛出）
+    // 是否開啟 debug 模式（debug 模式下错誤會 throw error 形式抛出）
     debug: false,
 
     // 插入链接时候的格式校验

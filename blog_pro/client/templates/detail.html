@@ -57,13 +57,13 @@ A ny individuals and organizations and not for commercial use, professiona websi
                 
                 var messages_list = result.data.messages
                 
-                html_body += '<article style="width: 2000px; background-color:white  z-index: 2;">';
+                html_body += '<article background-color:white  z-index: 2;">';
                 html_body += '<h1 class="t_nav">';
                 html_body += '<p class="n1">文章</p>';
                 html_body += '</h1>';
-                html_body += '<div class="infosbox" style="width: 2000px;  background-color:white">';
-                html_body += '<div class="newsview" style="width: 1600px;">';
-                html_body += '<h3 class="news_title style="width: 1500px;">' + result.data.title + '</h3>';
+                html_body += '<div class="infosbox" style=" background-color:white">';
+                html_body += '<div class="newsview">';
+                html_body += '<h3 class="news_title;">' + result.data.title + '</h3>';
                 html_body += '<div class="bloginfo">';
                 html_body += '<ul>';
                 html_body += '<li class="author"><a href="#">' + result.data.author + '</a></li>';
@@ -77,7 +77,7 @@ A ny individuals and organizations and not for commercial use, professiona websi
 
                 }
                 html_body += '<div class="news_about"><strong>簡介</strong>' + result.data.introduce + '</div>';
-                html_body += '<div class="news_con"style="width: 1550px; padding-left: 5px;border-left-style: solid;border-left-width: 20px;border-right-width: 20px;border-right-style: solid;padding-right: 5px;">';
+                html_body += '<div class="news_con"style="padding-left: 5px;border-left-style: solid;border-left-width: 20px;border-right-width: 20px;border-right-style: solid;padding-right: 5px;">';
                 html_body += result.data.content;
                 html_body += '</div>';
                 html_body += '</div>';

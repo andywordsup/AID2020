@@ -51,10 +51,10 @@ A ny individuals and organizations and not for commercial use, professiona websi
         // url
         url:"http://127.0.0.1:8000/v1/tokens",
         // url:"http://127.0.0.1:8000/test/",
-        // 把JS的对象或数组序列化一个json 字符串
+        // 把JS的對象或數組序列化一个json 字符串
         //JSON.stringify函式將一個JavaScript物件轉換成文字化的JSON
         data:JSON.stringify(post_data),
-        // result 为请求的返回结果对象
+        // result 请求的返回结果對象
         success:function (result) {
             if (200 == result.code){
                 window.localStorage.setItem('dnblog_token', result.data.token)

@@ -17,10 +17,6 @@ def index():
     return send_file('templates/index.html')
 
 
-@app.route('/index2')
-def index2():
-   
-    return send_file('templates/index2.html')
 
 @app.route('/login')
 def login():

@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    //检测ie 6789
+    //檢測ie 6789
     if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
         window.scrollReveal = new scrollReveal({
             reset: true
         });
     }
-    // 弹窗回复评论
+    // 弹窗回復評論
     var list = document.getElementsByClassName('replyComment');
     for (var i of list) {
         i.addEventListener("click", function (ev) {
@@ -58,7 +58,7 @@ $(document).ready(function () {
         style.display = style.display == 'block' ? 'none' : 'block';
         oH2.className = style.display == 'block' ? 'open' : '';
     };
-    //菜单点击效果
+    //點擊效果
     $('.list_dt').on('click', function () {
         $('.list_dd').stop();
         $(this).siblings('dt').removeAttr('id');
@@ -69,7 +69,7 @@ $(document).ready(function () {
         }
     });
 
-    //设置固定关注我们
+    //設置固定關注
 
     if ($('#follow-us')) {
         var followUsPosition = $('#follow-us').offset().top;
@@ -86,7 +86,7 @@ $(document).ready(function () {
     }
 
 
-    //回到顶部
+    //回到頂部
     // browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
         //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
@@ -120,15 +120,15 @@ function makeHeader(blog_username, username){
 
     //博客作者-用户信息url
     var user_info_url = '/' + blog_username + '/' + 'info'
-    //登陆用户发博客url
+    //登陸用戶發博客url
     if (username){
         var topic_release_url = '/' + username + '/' + 'topic/release'
     }else{
-        //没有登陆状态直接去登陆
+        //沒有登陸狀態直接去登陸
         var topic_release_url = '/login'
     }
 
-    //访问博主的博客文章
+    //訪問博主的博客文章
     var user_topics_url = '/' + blog_username + '/' + 'topics'
 
     var header_body = ''
@@ -177,26 +177,26 @@ function loginOut(){
 }
 
 function Header(username){
-    //blog_username 当前访问的博客的作者
-    //username   登陆的用户
+    //blog_username 當前訪問的博客的作者
+    //username   登陸的用戶
       console.log('token have')
     blog_username=username
-    //登陆用户发博客url
+    //登陸用戶發博客url
     if (username){
         var topic_release_url = '/' + username + '/' + 'topic/release'
         var user_topics_url = '/' + blog_username + '/' + 'topics'
         var user_info_url = '/' + blog_username + '/' + 'info'
     }else{
-        //没有登陆状态直接去登陆
+        //沒有登陸狀態直接去登陸
         var topic_release_url = '/login'
         var user_topics_url = '/login'
         var user_info_url = '/login'
 
     }
 
-    //访问博主的博客文章
-    //登陆用户发博客url
-    //访问博主的博客文章
+    //訪問博主的博客文章
+     //登陸用戶發博客url
+     //訪問博主的博客文章
     var header_body = ''
     header_body += '<header id="header">';
     header_body += '<div class="menu">';
